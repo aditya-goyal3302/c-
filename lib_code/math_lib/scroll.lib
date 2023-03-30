@@ -1,0 +1,36 @@
+// The functions contained in this file are pretty dummy
+// and are included only as a placeholder. Nevertheless,
+// they *will* get included in the static library if you
+// don't remove them :)
+//
+// Obviously, you 'll have to write yourself the super-duper
+// functions to include in the resulting library...
+// Also, it's not necessary to write every function in this file.
+// Feel free to add more files in this project. They will be
+// included in the resulting library.
+// A function adding two integers and returning the result
+
+HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE); // used for goto
+COORD CursorPosition; // used for goto
+
+void gotoXY(int x, int y)
+{
+	CursorPosition.X = x;
+	CursorPosition.Y = y;
+	SetConsoleCursorPosition(console,CursorPosition);
+}
+void SetColor(int ForgC)
+ {
+    WORD wColor;
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+
+                       //We use csbi for the wAttributes word.
+     if(GetConsoleScreenBufferInfo(console, &csbi))
+     {
+        //cout<<"activated";
+                 //Mask out all but the background attribute, and add in the forgournd     color
+          wColor = (csbi.wAttributes & 0xF0) + (ForgC & 0x0F);
+          SetConsoleTextAttribute(console, wColor);
+     }
+     return;
+ }
